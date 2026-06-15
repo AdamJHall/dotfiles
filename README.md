@@ -5,7 +5,7 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 ## Setup
 
 ```sh
-chezmoi init --apply https://github.com/adamhall1992/dotfiles
+chezmoi init --apply https://github.com/AdamJHall/dotfiles
 ```
 
 ## Dependencies
@@ -65,3 +65,7 @@ git clone https://github.com/catppuccin/zsh-syntax-highlighting ~/.oh-my-zsh/cus
 ---
 
 ### Node — [NVM](https://github.com/nvm-sh/nvm)
+
+---
+
+### Dev Tool Management - [Mise] (https://github.com/jdx/mise) 
