@@ -1,0 +1,27 @@
+imports:
+  - config.base.yaml
+
+system:
+  hostname: adam-laptop
+
+disks:
+  layout: lvm
+  esp:
+    device: /dev/nvme0n1
+    size: 4GiB
+  swap:
+    type: swapfile
+    size: 64GiB
+  lvm:
+    vg: vg0
+    lv: root
+    filesystem: xfs
+    pvs:
+      - /dev/nvme0n1p2
+      - /dev/nvme1n1
+
+hooks:
+  - name: Install Intel drivers
+    at: post-bootstrap
+    root: true
+    run: chwd --install intel

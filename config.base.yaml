@@ -1,0 +1,197 @@
+system:
+  timezone: Australia/Adelaide
+  locale: en_AU.UTF-8
+  locales:
+    - en_US.UTF-8
+  keymap: us
+
+user:
+  name: adam
+  shell: /usr/bin/zsh
+  groups: [wheel]
+
+disks:
+  layout: lvm
+  esp:
+    device: /dev/nvme0n1
+    size: 4GiB
+  swap:
+    type: swapfile
+    size: 64GiB
+  lvm:
+    vg: vg0
+    lv: root
+    filesystem: xfs
+    pvs:
+      - /dev/nvme0n1p2
+      - /dev/nvme1n1
+
+mirrors:
+  reflector: true
+  countries: [AU]
+  latest: 20
+  fastest: 10
+  sort: rate
+  protocols: [https]
+
+repos:
+  - name: cachyos
+    setup: |
+      curl -fsSL https://mirror.cachyos.org/cachyos-repo.tar.xz | tar -xJ -C /tmp
+      cd /tmp/cachyos-repo && ./cachyos-repo.sh --install
+
+pacstrap:
+  - zsh
+  - sudo
+  - networkmanager
+  - efibootmgr
+  - intel-ucode
+
+packages:
+  - base-devel
+  - git
+  - vim
+  - alacritty
+  - dolphin
+  - starship
+  - fzf
+  - discord
+  - chwd # cachy hardware detection tool
+  - man-db
+  - man-pages
+  - tmux
+  - steam
+  - gamescope
+  - github-cli
+  - nvtop
+  - jq
+  # KDE Plasma packages
+  - plasma-login-manager
+  - aurorae
+  - breeze
+  - breeze-cursors
+  - breeze-gtk
+  - breeze-plymouth
+  - discover
+  - drkonqi
+  - flatpak-kcm
+  - kactivitymanagerd
+  - kde-cli-tools
+  - kde-gtk-config
+  - kdecoration
+  - kdeplasma-addons
+  - kgamma
+  - kglobalacceld
+  - kinfocenter
+  - kmenuedit
+  - kpipewire
+  - kscreen
+  - kscreenlocker
+  - ksshaskpass
+  - ksystemstats
+  - kwallet-pam
+  - kwayland
+  - kwin
+  - kwin
+  - kwin-x11
+  - kwin-x11
+  - kwrited
+  - layer-shell-qt
+  - libkscreen
+  - libksysguard
+  - libplasma
+  - milou
+  - plasma5support
+  - plasma-activities
+  - plasma-activities-stats
+  - plasma-browser-integration
+  - plasma-desktop
+  - plasma-disks
+  - plasma-integration
+  - plasma-keyboard
+  - plasma-nm
+  - plasma-pa
+  - plasma-sdk
+  - plasma-systemmonitor
+  - plasma-thunderbolt
+  - plasma-vault
+  - plasma-workspace
+  - plasma-workspace-wallpapers
+  - plymouth-kcm
+  - polkit-kde-agent
+  - powerdevil
+  - qqc2-breeze-style
+  - spectacle
+  - systemsettings
+  - union
+  - xdg-desktop-portal-kde
+
+kernel:
+  base: [linux]
+  packages: [linux-cachyos]
+  default: linux-cachyos
+  replace_stock: true
+
+flatpak_remotes:
+  - { name: flathub, url: https://flathub.org/repo/flathub.flatpakrepo }
+
+flatpaks:
+  - flathub:com.spotify.Client
+  - flathub:org.mozilla.firefox
+  - flathub:com.stremio.Stremio
+
+aur:
+  - 1password
+  - 1password-cli
+  - visual-studio-code-bin
+
+aur_helper: yay
+
+bootloader:
+  kind: grub
+
+plymouth:
+  theme: spinner
+
+grub:
+  cmdline_extra: "quiet splash" 
+  theme:
+    source: vinceliuice
+    name: tela
+
+desktop:
+  environment: kde
+
+kde:
+  look_and_feel: org.kde.breezedark.desktop
+  color_scheme: BreezeDark
+  cursor_theme: breeze_cursors
+  # wallpaper: /usr/share/wallpapers/Next/contents/images/1920x1080.png
+
+dotfiles:
+  repo: https://github.com/AdamJHall/dotfiles
+  # manager: chezmoi
+
+setup:
+  steps:
+    - command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    # oh-my-zsh custom plugins
+    - clone: { url: https://github.com/Aloxaf/fzf-tab, dest: ~/.oh-my-zsh/custom/plugins/fzf-tab }
+    - clone: { url: https://github.com/zsh-users/zsh-autosuggestions, dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions }
+    - clone: { url: https://github.com/zsh-users/zsh-syntax-highlighting, dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting }
+    - clone: { url: https://github.com/joshskidmore/zsh-fzf-history-search, dest: ~/.oh-my-zsh/custom/plugins/zsh-fzf-history-search }
+    - clone: { url: https://github.com/zsh-users/zsh-completions, dest: ~/.oh-my-zsh/custom/plugins/zsh-completions }
+    - clone: { url: https://github.com/catppuccin/zsh-syntax-highlighting, dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-catppuccin }
+    # tmux plugin manager + theme
+    - clone: { url: https://github.com/tmux-plugins/tpm, dest: ~/.config/tmux/plugins/tpm }
+    - clone: { url: https://github.com/catppuccin/tmux, dest: ~/.config/tmux/plugins/tmux }
+
+services:
+  enable:
+    - plasmalogin.service
+
+hooks:
+  - name: Install Nvidia drivers
+    at: post-bootstrap
+    root: true
+    run: chwd --install nvidia-open-dkms
