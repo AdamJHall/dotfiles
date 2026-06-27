@@ -44,11 +44,12 @@ packages:
   - discord
   - chwd # cachy hardware detection tool
   - tmux
-  # - steam
-  # - gamescope
+  - steam
+  - gamescope
   - github-cli
   - nvtop
   - jq
+  - ttf-ubuntu-mono-nerd
   # KDE Plasma packages
   - plasma-login-manager
   - aurorae

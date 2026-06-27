@@ -22,11 +22,11 @@ disks:
 
 hooks:
   - name: Install Intel drivers
-    at: post-bootstrap
+    at: after:packages
     root: true
     run: chwd --install intel
 
   - name: Install Nvidia drivers
-    at: post-bootstrap
+    at: after:packages
     root: true
     run: chwd --install nvidia-open-dkms.prime

@@ -22,6 +22,6 @@ disks:
 
 hooks:
   - name: Install Nvidia drivers
-    at: post-bootstrap
+    at: after:packages
     root: true
     run: chwd --install nvidia-open-dkms
