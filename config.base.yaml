@@ -10,22 +10,6 @@ user:
   shell: /usr/bin/zsh
   groups: [wheel]
 
-disks:
-  layout: lvm
-  esp:
-    device: /dev/nvme0n1
-    size: 4GiB
-  swap:
-    type: swapfile
-    size: 64GiB
-  lvm:
-    vg: vg0
-    lv: root
-    filesystem: xfs
-    pvs:
-      - /dev/nvme0n1p2
-      - /dev/nvme1n1
-
 mirrors:
   reflector: true
   countries: [AU]
@@ -41,24 +25,24 @@ repos:
       cd /tmp/cachyos-repo && ./cachyos-repo.sh --install
 
 pacstrap:
+  - base-devel
+  - git
   - zsh
   - sudo
   - networkmanager
   - efibootmgr
   - intel-ucode
+  - man-db
+  - man-pages
+  - vim
 
 packages:
-  - base-devel
-  - git
-  - vim
   - alacritty
   - dolphin
   - starship
   - fzf
   - discord
   - chwd # cachy hardware detection tool
-  - man-db
-  - man-pages
   - tmux
   - steam
   - gamescope
@@ -126,6 +110,9 @@ packages:
   - union
   - xdg-desktop-portal-kde
 
+pacman:
+  multilib: true
+
 kernel:
   base: [linux]
   packages: [linux-cachyos]
@@ -184,6 +171,7 @@ setup:
     - clone: { url: https://github.com/catppuccin/zsh-syntax-highlighting, dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-catppuccin }
     # tmux plugin manager + theme
     - clone: { url: https://github.com/tmux-plugins/tpm, dest: ~/.config/tmux/plugins/tpm }
+    - command: ~/.config/tmux/plugins/tpm/bin/install_plugins
     - clone: { url: https://github.com/catppuccin/tmux, dest: ~/.config/tmux/plugins/tmux }
 
 services:
