@@ -44,8 +44,8 @@ packages:
   - discord
   - chwd # cachy hardware detection tool
   - tmux
-  - steam
-  - gamescope
+  # - steam
+  # - gamescope
   - github-cli
   - nvtop
   - jq
@@ -170,16 +170,10 @@ setup:
     - clone: { url: https://github.com/zsh-users/zsh-completions, dest: ~/.oh-my-zsh/custom/plugins/zsh-completions }
     - clone: { url: https://github.com/catppuccin/zsh-syntax-highlighting, dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-catppuccin }
     # tmux plugin manager + theme
-    - clone: { url: https://github.com/tmux-plugins/tpm, dest: ~/.config/tmux/plugins/tpm }
-    - command: ~/.config/tmux/plugins/tpm/bin/install_plugins
+    - clone: { url: https://github.com/tmux-plugins/tpm, dest: ~/.tmux/plugins/tpm }
+    - command: ~/.tmux/plugins/tpm/bin/install_plugins
     - clone: { url: https://github.com/catppuccin/tmux, dest: ~/.config/tmux/plugins/tmux }
 
 services:
   enable:
     - plasmalogin.service
-
-hooks:
-  - name: Install Nvidia drivers
-    at: post-bootstrap
-    root: true
-    run: chwd --install nvidia-open-dkms

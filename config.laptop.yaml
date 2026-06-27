@@ -25,3 +25,8 @@ hooks:
     at: post-bootstrap
     root: true
     run: chwd --install intel
+
+  - name: Install Nvidia drivers
+    at: post-bootstrap
+    root: true
+    run: chwd --install nvidia-open-dkms.prime

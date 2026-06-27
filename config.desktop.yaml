@@ -19,3 +19,9 @@ disks:
     pvs:
       - /dev/nvme0n1p2
       - /dev/nvme1n1
+
+hooks:
+  - name: Install Nvidia drivers
+    at: post-bootstrap
+    root: true
+    run: chwd --install nvidia-open-dkms
