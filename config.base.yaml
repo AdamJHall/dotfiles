@@ -110,6 +110,7 @@ packages:
   - systemsettings
   - union
   - xdg-desktop-portal-kde
+  - tesseract-data-eng
 
 pacman:
   multilib: true
@@ -146,15 +147,14 @@ grub:
   theme:
     source: vinceliuice
     name: tela
+    screen: 4k
+    background: https://raw.githubusercontent.com/adamjhall/dotfiles/main/background.jpg
 
 desktop:
   environment: kde
 
 kde:
   look_and_feel: org.kde.breezedark.desktop
-  color_scheme: BreezeDark
-  cursor_theme: breeze_cursors
-  # wallpaper: /usr/share/wallpapers/Next/contents/images/1920x1080.png
 
 dotfiles:
   repo: https://github.com/AdamJHall/dotfiles

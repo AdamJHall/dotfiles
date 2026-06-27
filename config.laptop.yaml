@@ -20,6 +20,10 @@ disks:
       - /dev/nvme0n1p2
       - /dev/nvme1n1
 
+packages:
+  - cachyos-v3/nvidia-utils
+  - cachyos-v3/lib32-nvidia-utils
+
 hooks:
   - name: Install Intel drivers
     at: after:packages

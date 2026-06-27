@@ -20,6 +20,10 @@ disks:
       - /dev/nvme0n1p2
       - /dev/nvme1n1
 
+packages:
+  - cachyos-v4/nvidia-utils
+  - cachyos-v4/lib32-nvidia-utils
+
 hooks:
   - name: Install Nvidia drivers
     at: after:packages
