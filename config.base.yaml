@@ -50,6 +50,7 @@ packages:
   - nvtop
   - jq
   - ttf-ubuntu-mono-nerd
+  - openssh
   # KDE Plasma packages
   - plasma-login-manager
   - aurorae
@@ -174,6 +175,10 @@ setup:
     - clone: { url: https://github.com/tmux-plugins/tpm, dest: ~/.tmux/plugins/tpm }
     - command: ~/.tmux/plugins/tpm/bin/install_plugins
     - clone: { url: https://github.com/catppuccin/tmux, dest: ~/.config/tmux/plugins/tmux }
+    # Install mise for project specific toolchains
+    - command: curl https://mise.run | sh
+    # Install NVM for node 
+    - command: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
 
 services:
   enable:
