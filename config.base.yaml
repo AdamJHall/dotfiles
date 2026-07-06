@@ -78,8 +78,6 @@ packages:
   - kwallet-pam
   - kwayland
   - kwin
-  - kwin
-  - kwin-x11
   - kwin-x11
   - kwrited
   - layer-shell-qt
@@ -129,6 +127,7 @@ flatpaks:
   - flathub:com.spotify.Client
   - flathub:org.mozilla.firefox
   - flathub:com.stremio.Stremio
+  - flathub:md.obsidian.Obsidian
 
 aur:
   - 1password
